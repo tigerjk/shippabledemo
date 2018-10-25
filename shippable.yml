@@ -23,7 +23,7 @@ build:
     - msbuild /target:restore /property:Configuration=Release /property:Platform="Any CPU" /maxcpucount /toolsversion:15.0 ShippableDemo.sln
     - echo 'Building ShippableDemo using .NET 4.6.2...'
     - msbuild /property:Configuration=Release /property:Platform="Any CPU" /maxcpucount /toolsversion:15.0 ShippableDemo.sln
-    - pushd "${SHIPPABLE_BUILD_DIR}/ShippableDemo/ShippableDemo/bin/Release/net462"
+    - pushd "${SHIPPABLE_BUILD_DIR}/ShippableDemo/ShippableDemo/bin/Release"
     #- echo 'Running ShippableDemo using mono 5...'
     #- mono ShippableDemo.exe '{"Hello":"World"}'
     - popd
