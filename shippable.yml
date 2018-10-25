@@ -18,13 +18,13 @@ build:
     #
     # Build and run an application that uses .NET 4.6.2 using the new csproj file format
     #
-    - pushd "${SHIPPABLE_BUILD_DIR}/ModernProjectNet462"
-    - echo 'Restoring NuGet dependencies for ModernProjectNet462 that uses the new csproj file format...'
-    - msbuild /target:restore /property:Configuration=Release /property:Platform="Any CPU" /maxcpucount /toolsversion:15.0 MyModernProject.sln
-    - echo 'Building ModernProjectNet462 using .NET 4.6.2...'
-    - msbuild /property:Configuration=Release /property:Platform="Any CPU" /maxcpucount /toolsversion:15.0 MyModernProject.sln
-    - pushd "${SHIPPABLE_BUILD_DIR}/ModernProjectNet462/MyApplication/bin/Release/net462"
-    - echo 'Running ModernProjectNet462 using mono 5...'
-    - mono MyApplication.exe '{"Hello":"World"}'
+    - pushd "${SHIPPABLE_BUILD_DIR}/ShippableDemo"
+    - echo 'Restoring NuGet dependencies for ShippableDemo that uses the new csproj file format...'
+    - msbuild /target:restore /property:Configuration=Release /property:Platform="Any CPU" /maxcpucount /toolsversion:15.0 ShippableDemo.sln
+    - echo 'Building ShippableDemo using .NET 4.6.2...'
+    - msbuild /property:Configuration=Release /property:Platform="Any CPU" /maxcpucount /toolsversion:15.0 ShippableDemo.sln
+    - pushd "${SHIPPABLE_BUILD_DIR}/ShippableDemo/ShippableDemo/bin/Release/net462"
+    #- echo 'Running ShippableDemo using mono 5...'
+    #- mono ShippableDemo.exe '{"Hello":"World"}'
     - popd
     - popd
