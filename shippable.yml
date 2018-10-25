@@ -1,0 +1,30 @@
+language: none
+
+build:
+  # Cache NuGet packages
+  cache: true
+  cache_dir_list:
+    - /root/.config/NuGet
+    - /root/.nuget
+  # Use our custom Ubuntu-mono-dotnet20 image to boot the CI build container
+  pre_ci_boot:
+    image_name: devopsrecipes/u16dotnet
+    image_tag: "master.4"
+    options: "-e HOME=/root"
+  ci:
+    - dotnet --version
+    - mono --version
+    - msbuild /version
+    #
+    # Build and run an application that uses .NET 4.6.2 using the new csproj file format
+    #
+    - pushd "${SHIPPABLE_BUILD_DIR}/ModernProjectNet462"
+    - echo 'Restoring NuGet dependencies for ModernProjectNet462 that uses the new csproj file format...'
+    - msbuild /target:restore /property:Configuration=Release /property:Platform="Any CPU" /maxcpucount /toolsversion:15.0 MyModernProject.sln
+    - echo 'Building ModernProjectNet462 using .NET 4.6.2...'
+    - msbuild /property:Configuration=Release /property:Platform="Any CPU" /maxcpucount /toolsversion:15.0 MyModernProject.sln
+    - pushd "${SHIPPABLE_BUILD_DIR}/ModernProjectNet462/MyApplication/bin/Release/net462"
+    - echo 'Running ModernProjectNet462 using mono 5...'
+    - mono MyApplication.exe '{"Hello":"World"}'
+    - popd
+    - popd
